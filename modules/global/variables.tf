@@ -13,3 +13,6 @@ variable "uc1_private_subnet" {
 
 variable "uc1_public_subnet" {
 }
+
+variable "region_name" {
+}

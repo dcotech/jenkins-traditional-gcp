@@ -1,5 +1,5 @@
 ######################################################################
-# Configures VPC and Firewall
+# Configures VPC, Networking, and Firewall
 ######################################################################
 
 resource "google_compute_network" "vpc" {
@@ -41,7 +41,7 @@ resource "google_compute_firewall" "allow-external" {
         ports    = ["80"]
     }
 
-    target_tags  = ["http"]
+    target_tags = ["http"]
 }
 
 resource "google_compute_firewall" "allow-ssh" {
@@ -53,4 +53,18 @@ resource "google_compute_firewall" "allow-ssh" {
     }
 
     target_tags = ["ssh"]  
+}
+
+resource "google_compute_subnetwork" "public_subnet" {
+    name          = "${var.department}-${var.env}-${var.region_name}-pub-net"
+    ip_cidr_range = "${var.uc1_public_subnet}"
+    network       = "${google_compute_network.vpc.self_link}"
+    region        = "${var.region_name}"
+}
+
+resource "google_compute_subnetwork" "private_subnet" {
+    name = "${var.department}-${var.env}-${var.region_name}-private-net"
+    ip_cidr_range = "${var.uc1_private_subnet}"
+    network = "${google_compute_network.vpc.self_link}"
+    region = "${var.region_name}"
 }
