@@ -10,7 +10,7 @@ variable "department" {
         default = "dco-cloudbees"
     }
 
-#--- gce_instance/network variables
+#---- gce_instance/network variables
 
 variable "uc1_private_subnet" {
         default = "10.26.1.0/24"
