@@ -13,6 +13,7 @@ resource "google_compute_instance" "default" {
 labels = {
       webserver =  "true"     
     }
+    
 metadata = {
         startup-script = <<SCRIPT
         apt-get -y update
